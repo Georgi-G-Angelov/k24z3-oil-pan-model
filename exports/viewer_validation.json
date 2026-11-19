@@ -1,0 +1,20 @@
+{
+  "webgl_rendering": true,
+  "distinct_views": true,
+  "internals_toggle": true,
+  "plugs_toggle": true,
+  "exploded_view": true,
+  "pointer_orbit": true,
+  "wheel_zoom": true,
+  "orthographic_end_view": true,
+  "ground_reference": true,
+  "cad_edge_picking": true,
+  "circular_edge_diameter": true,
+  "multi_edge_sum": true,
+  "measured_labels": true,
+  "clear_measurements": true,
+  "bolt_spacing_lines_pickable": true,
+  "bolt_spacing_labels_clickable": true,
+  "bolt_spacings_independent_toggle": true,
+  "sixteen_bolt_spacing_labels": true
+}

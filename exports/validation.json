@@ -1,0 +1,697 @@
+{
+  "units": "mm",
+  "step_round_trip_valid": true,
+  "pan_feature_checks": {
+    "open_bridge_cavity": true,
+    "rack_clearance_below_bridge": true,
+    "bridge_floor_present": true,
+    "front_well_hollow": true,
+    "front_floor_present": true,
+    "rear_well_hollow": true,
+    "rear_floor_present": true,
+    "upper_side_wall_present": true,
+    "all_flange_holes_open": true
+  },
+  "floor_geometry_checks": {
+    "measured_flange_to_floor_deg": 14.999999999999996,
+    "measured_signed_roll_deg": -14.999999999999998,
+    "horizontal_outer_floor_levels_mm": [
+      0,
+      16.0,
+      94.0
+    ],
+    "floor_thickness_mm": 2.54,
+    "circular_flange_normal_bores": 16,
+    "all_bore_axes_match_image_trace": true,
+    "flange_normal_thickness_mm": 9.525,
+    "pan_min_z_mm": -1.0000005684341886e-07
+  },
+  "parts": {
+    "pan": {
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_components": 1,
+      "triangles": 9990,
+      "bounds_mm": [
+        [
+          -228.0,
+          -167.0647430419922,
+          -1.1368683772161603e-13
+        ],
+        [
+          227.5663299560547,
+          143.11045837402344,
+          176.94056701660156
+        ]
+      ],
+      "material_volume_mm3": 923968.5131820159
+    },
+    "front_drain_plug": {
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_components": 1,
+      "triangles": 356,
+      "bounds_mm": [
+        [
+          -231.0,
+          -41.49227523803711,
+          14.857778549194336
+        ],
+        [
+          -213.0,
+          -21.207834243774414,
+          35.14221954345703
+        ]
+      ],
+      "material_volume_mm3": 3436.2931971604394
+    },
+    "rear_drain_plug": {
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_components": 1,
+      "triangles": 356,
+      "bounds_mm": [
+        [
+          184.05999755859375,
+          -172.1079864501953,
+          30.48000144958496
+        ],
+        [
+          205.05999755859375,
+          -150.6207733154297,
+          50.44216537475586
+        ]
+      ],
+      "material_volume_mm3": 3436.293197160437
+    },
+    "overflow_plug": {
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_components": 1,
+      "triangles": 356,
+      "bounds_mm": [
+        [
+          73.0,
+          -142.66720581054688,
+          99.41184997558594
+        ],
+        [
+          89.0,
+          -124.18984985351562,
+          114.83323669433594
+        ]
+      ],
+      "material_volume_mm3": 1706.4831076258704
+    },
+    "pickup_baffle_estimated": {
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_components": 1,
+      "triangles": 1308,
+      "bounds_mm": [
+        [
+          64.54000091552734,
+          -113.03707885742188,
+          80.44928741455078
+        ],
+        [
+          216.37518310546875,
+          104.64289093017578,
+          141.0537567138672
+        ]
+      ],
+      "material_volume_mm3": 55421.83062787659
+    },
+    "partition_left_estimated": {
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_components": 1,
+      "triangles": 32,
+      "bounds_mm": [
+        [
+          94.0,
+          -90.03277587890625,
+          19.540000915527344
+        ],
+        [
+          200.0,
+          -59.61405944824219,
+          123.90777587890625
+        ]
+      ],
+      "material_volume_mm3": 24945.778935103303
+    },
+    "trap_door_left_estimated": {
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_components": 1,
+      "triangles": 12,
+      "bounds_mm": [
+        [
+          124.0,
+          -84.75950622558594,
+          23.14522361755371
+        ],
+        [
+          170.0,
+          -72.44022369384766,
+          64.10234069824219
+        ]
+      ],
+      "material_volume_mm3": 2898.000000000008
+    },
+    "partition_right_estimated": {
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_components": 1,
+      "triangles": 40,
+      "bounds_mm": [
+        [
+          94.0,
+          21.777055740356445,
+          19.540000915527344
+        ],
+        [
+          200.0,
+          44.705928802490234,
+          95.955322265625
+        ]
+      ],
+      "material_volume_mm3": 17102.93525225418
+    },
+    "trap_door_right_estimated": {
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_components": 1,
+      "triangles": 12,
+      "bounds_mm": [
+        [
+          124.0,
+          20.211563110351562,
+          24.977663040161133
+        ],
+        [
+          170.0,
+          32.530853271484375,
+          65.93477630615234
+        ]
+      ],
+      "material_volume_mm3": 2897.9999999999977
+    },
+    "front_rib_33_estimated": {
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_components": 1,
+      "triangles": 32,
+      "bounds_mm": [
+        [
+          -181.27000427246094,
+          -149.19635009765625,
+          2.5399999618530273
+        ],
+        [
+          -178.72999572753906,
+          96.47441101074219,
+          155.92697143554688
+        ]
+      ],
+      "material_volume_mm3": 62288.8967091221
+    },
+    "front_rib_79_estimated": {
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_components": 1,
+      "triangles": 32,
+      "bounds_mm": [
+        [
+          -135.27000427246094,
+          -149.248046875,
+          2.5399999618530273
+        ],
+        [
+          -132.72999572753906,
+          108.73237609863281,
+          155.9398956298828
+        ]
+      ],
+      "material_volume_mm3": 65862.1171073979
+    }
+  },
+  "coordinate_frame": "Floor frame: small-well bottom Z=0; flange center at front_depth_mm.",
+  "estimated_bolt_centers_flange_frame_mm": [
+    [
+      -30.52419,
+      125.34915
+    ],
+    [
+      37.39567,
+      125.54924
+    ],
+    [
+      -98.39726,
+      125.31605
+    ],
+    [
+      105.12185,
+      124.09125
+    ],
+    [
+      -166.1133,
+      122.79373
+    ],
+    [
+      165.11001,
+      83.27724
+    ],
+    [
+      -216.85518,
+      73.20641
+    ],
+    [
+      217.03941,
+      39.55309
+    ],
+    [
+      -220.04049,
+      0.49247
+    ],
+    [
+      -221.70583,
+      -75.74517
+    ],
+    [
+      217.06588,
+      -79.92407
+    ],
+    [
+      -174.39809,
+      -117.84301
+    ],
+    [
+      -92.65662,
+      -118.04561
+    ],
+    [
+      -12.37875,
+      -117.97628
+    ],
+    [
+      67.74501,
+      -122.51909
+    ],
+    [
+      148.12144,
+      -122.77235
+    ]
+  ],
+  "estimated_bolt_centers_floor_frame_mm": [
+    [
+      -30.52419,
+      121.07798128838236,
+      109.55725269258735
+    ],
+    [
+      37.39567,
+      121.27125338696455,
+      109.5054655898528
+    ],
+    [
+      -98.39726,
+      121.0460091435322,
+      109.56581960298026
+    ],
+    [
+      105.12185,
+      119.86294319149334,
+      109.88282116942182
+    ],
+    [
+      -166.1133,
+      118.60963511336675,
+      110.21864405682325
+    ],
+    [
+      165.11001,
+      80.43963685807306,
+      120.44626426442656
+    ],
+    [
+      -216.85518,
+      70.71196206890632,
+      123.05278686841638
+    ],
+    [
+      217.03941,
+      38.20535114053588,
+      131.76290701534595
+    ],
+    [
+      -220.04049,
+      0.4756894916725775,
+      141.87253938485836
+    ],
+    [
+      -221.70583,
+      -73.16421591965594,
+      161.60429257052812
+    ],
+    [
+      217.06588,
+      -77.20072335513534,
+      162.68587147810703
+    ],
+    [
+      -174.39809,
+      -113.82760680664094,
+      172.5000153202068
+    ],
+    [
+      -92.65662,
+      -114.0233033790471,
+      172.55245205874456
+    ],
+    [
+      -12.37875,
+      -113.95633574151049,
+      172.53450813434762
+    ],
+    [
+      67.74501,
+      -118.34435324443473,
+      173.7102738806298
+    ],
+    [
+      148.12144,
+      -118.5889836192007,
+      173.77582239199245
+    ]
+  ],
+  "estimated_flange_outline_flange_frame_mm": [
+    [
+      93.34665,
+      135.0
+    ],
+    [
+      102.01997,
+      134.34677
+    ],
+    [
+      112.64479,
+      131.73387
+    ],
+    [
+      122.83595,
+      127.81452
+    ],
+    [
+      134.11127,
+      121.5
+    ],
+    [
+      220.19401,
+      49.8629
+    ],
+    [
+      224.097,
+      44.6371
+    ],
+    [
+      226.48217,
+      39.41129
+    ],
+    [
+      227.56633,
+      34.62097
+    ],
+    [
+      227.56633,
+      -77.08065
+    ],
+    [
+      224.53067,
+      -86.22581
+    ],
+    [
+      218.45934,
+      -93.41129
+    ],
+    [
+      155.14408,
+      -133.04032
+    ],
+    [
+      148.85592,
+      -135.0
+    ],
+    [
+      143.00143,
+      -133.91129
+    ],
+    [
+      138.8816,
+      -130.42742
+    ],
+    [
+      135.6291,
+      -129.77419
+    ],
+    [
+      77.73466,
+      -129.55645
+    ],
+    [
+      71.22967,
+      -132.82258
+    ],
+    [
+      66.67618,
+      -133.25806
+    ],
+    [
+      63.42368,
+      -132.3871
+    ],
+    [
+      58.43652,
+      -129.12097
+    ],
+    [
+      55.83452,
+      -128.68548
+    ],
+    [
+      -3.14408,
+      -125.6371
+    ],
+    [
+      -8.99857,
+      -128.25
+    ],
+    [
+      -12.90157,
+      -128.90323
+    ],
+    [
+      -16.3709,
+      -128.03226
+    ],
+    [
+      -20.05706,
+      -125.41935
+    ],
+    [
+      -24.82739,
+      -124.76613
+    ],
+    [
+      -82.93866,
+      -124.98387
+    ],
+    [
+      -90.74465,
+      -128.68548
+    ],
+    [
+      -95.08131,
+      -128.68548
+    ],
+    [
+      -102.01997,
+      -124.98387
+    ],
+    [
+      -165.1184,
+      -124.98387
+    ],
+    [
+      -170.3224,
+      -128.03226
+    ],
+    [
+      -175.30956,
+      -128.68548
+    ],
+    [
+      -179.64622,
+      -127.37903
+    ],
+    [
+      -183.98288,
+      -124.76613
+    ],
+    [
+      -194.39087,
+      -124.33065
+    ],
+    [
+      -204.36519,
+      -121.5
+    ],
+    [
+      -212.60485,
+      -116.70968
+    ],
+    [
+      -220.62767,
+      -108.43548
+    ],
+    [
+      -225.83167,
+      -98.20161
+    ],
+    [
+      -228.0,
+      -87.96774
+    ],
+    [
+      -226.48217,
+      2.6129
+    ],
+    [
+      -224.097,
+      62.92742
+    ],
+    [
+      -224.31384,
+      66.19355
+    ],
+    [
+      -226.0485,
+      69.89516
+    ],
+    [
+      -226.26534,
+      74.03226
+    ],
+    [
+      -224.7475,
+      78.16935
+    ],
+    [
+      -221.92867,
+      81.0
+    ],
+    [
+      -215.85735,
+      91.01613
+    ],
+    [
+      -182.46505,
+      123.45968
+    ],
+    [
+      -175.96006,
+      127.81452
+    ],
+    [
+      -168.58773,
+      131.29839
+    ],
+    [
+      -155.36091,
+      134.56452
+    ],
+    [
+      -64.07418,
+      134.12903
+    ]
+  ],
+  "estimated_rear_sump_outline_flange_frame_mm": [
+    [
+      61.0,
+      87.00000000000001
+    ],
+    [
+      61.0,
+      -56.999999999999986
+    ],
+    [
+      115.06,
+      -109.5
+    ],
+    [
+      169.12,
+      -120.0
+    ],
+    [
+      220.0,
+      -120.0
+    ],
+    [
+      220.0,
+      138.0
+    ],
+    [
+      169.12,
+      150.0
+    ],
+    [
+      115.06,
+      139.5
+    ]
+  ],
+  "provenance": {
+    "engine_roll_deg": "15-degree magnitude is an OEM K20/K24 slant quoted by ATI, not a verified KPower NA/NB installation angle. Roll about X is -15 degrees: reversed from the initial +15-degree model per the user's direction correction; negative Y is now the high side. Individual panel angles remain unmeasured. Editable; no longitudinal pitch inferred.",
+    "engine_roll_source": "https://www.atiracing.com/links/pr/2025/09-Honda-K20_K24_Adapter_kit/ describes straight-up orientation and OEM 15 degree slant.",
+    "kpower_angle_check": "K24Z3 Installation Guide, October 2020 revision 2, checked for angle: no numerical engine roll specification found. Page 21 supplies additional pan photographs.",
+    "construction": "Sump floors, bridge floor and rear wing ledges are parallel to the floor datum. Side panels retain their flange-normal directions and are trimmed to the level floors, giving non-square floor joints. Hidden panel orientations remain estimates.",
+    "depths": "Vertical distances from flange center to the outer floors, not distances normal to the tilted flange. The small well bottom is Z=0 in exported files.",
+    "length_mm": "Provisional scale based on the listed 456 mm overall length of ACKOJA A26-0159, an OEM-pattern replacement cross-referenced to 11200-PNA-000/11200-RAA-A00. Not a verified K24Z3 flange measurement.",
+    "flange_width_mm": "Provisional scale based on the listed 270 mm overall width of ACKOJA A26-0159. Overall pan width is not necessarily mounting-plate width; this correspondence is an assumption.",
+    "stock_reference": "https://spareto.com/products/ackoja-oil-sump/a26-0159 lists Length 456, Width 270, Height 140 mm separately from shipping details.",
+    "stock_reference_cross_check": "https://www.autodoc.co.uk/ackojap/14480037 independently lists the same part dimensions and separate packaging dimensions.",
+    "wall_mm": "Manufacturer V2 specification: .100 inch. Photo version is not confirmed.",
+    "rail_mm": "Manufacturer V2 specification: 3/8 inch. Photo version is not confirmed.",
+    "all_other_dimensions": "Unmeasured photo-proportion estimates, constrained by a provisional stock-pattern overall envelope; not manufacturer dimensions.",
+    "rear_outline_uv": "Photo-proportioned rear reservoir, refined per the user's symmetry correction: the negative-Y bung side is pulled inward 30 mm in flange coordinates and its shoulders now mirror the opposite shoulder about the throat centre. The slight positive-Y rear taper remains. Narrow throat and broad straight rear edge are preserved. u runs bridge-to-rear; v runs photo-left (+Y) to photo-right (-Y) across the 300 mm reference span. The active v=0..0.90 profile spans 270 mm in flange coordinates. Photo references: copilot-image-d8fdda.png / copilot-image-41c7ac.png. No perspective calibration or measured fit claimed.",
+    "rear_sump_width_mm": "Reference span for normalized rear_outline_uv, not necessarily the occupied polygon width. Current profile uses 90 percent of this span.",
+    "bolt_pattern": "16 hole centres extracted from user-supplied copilot-image-fe0fd3.png; outer and inner contours traced into flange_profile.json. X/Y scaled to provisional 456 x 270 mm. Relative layout is image-derived, not generic spacing; absolute dimensions, hole bores and handedness remain unverified.",
+    "flange_border_mm": "Legacy body-layout parameter only. The flange border itself now follows separately traced inner and outer contours, not a constant-width inset.",
+    "drains": "Illustrative position and bore; no threads or sealing-seat specification. Drain heights follow their local floors. Rear drain, bore and plug follow the actual negative-Y profile wall, including the inward symmetry correction; its physical position is still unverified. Overflow is on the high-rail side above the bridge floor.",
+    "baffles": "Conceptual placement; hidden trap-door geometry is not established by the photos.",
+    "capacity": "Manufacturer quotes 6 US quarts for the real system; this model is not calibrated to that capacity.",
+    "orientation": "X runs between the small box well and broad polygonal well. Vehicle front/rear assignment is inferred."
+  }
+}

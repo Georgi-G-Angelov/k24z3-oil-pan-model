@@ -1,0 +1,4 @@
+cadquery==2.8.0
+trimesh==4.11.1
+pillow>=11,<13
+scipy>=1.15,<2

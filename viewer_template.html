@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>K24Z3 oil pan - photo-derived 3D study</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#101820;color:#e6edf3;font:15px system-ui,sans-serif}
+header{padding:18px 24px;border-bottom:1px solid #344352}h1{font-size:24px;margin:0 0 7px}
+.warning{color:#eabe7f;line-height:1.5}main{display:grid;grid-template-columns:1fr 340px}
+canvas{width:100%;height:calc(100vh - 108px);min-height:500px;display:block;touch-action:none}
+#viewport{position:relative;min-width:0}#measure-labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.measure-pin{position:absolute;padding:4px 7px;background:#ffe0a2;color:#18212b;border:1px solid #a87b2f;border-radius:4px;font-size:12px;white-space:nowrap}
+.bolt-label{position:absolute;padding:2px 4px;background:#12313c;color:#8cebf3;border:1px solid #3b8493;border-radius:3px;font-size:11px;white-space:nowrap;transform:translate(-50%,-50%);pointer-events:auto;cursor:pointer}
+#measurement-panel{border:1px solid #546c80;padding:10px;border-radius:5px;margin:12px 0}
+#measure-result{font-size:13px;line-height:1.55}#measure-result p{margin:6px 0}
+aside{padding:20px;background:#17232d;overflow:auto;max-height:calc(100vh - 108px)}
+button,a.button{display:inline-block;background:#294052;color:#e6edf3;padding:9px 12px;margin:3px;border:1px solid #546c80;border-radius:5px;text-decoration:none;cursor:pointer}
+label{display:block;margin:15px 0}p{line-height:1.5}small{color:#b0c1d0}a{color:#90c8ff}
+pre{font-size:11px;white-space:pre-wrap}h2{font-size:16px;margin-top:22px}.error{color:#ffaca5}
+@media(max-width:850px){main{display:block}canvas{height:60vh;min-height:350px}aside{max-height:none}}
+</style>
+</head>
+<body>
+<header><h1>K24Z3 / Miata oil pan</h1>
+<div class="warning">Photo-derived approximation. Estimated flange and bolt pattern. NOT fabrication-ready or fit-certified.</div></header>
+<main>
+<div id="viewport"><canvas id="view" aria-label="Interactive 3D oil-pan model with clickable measured edges"></canvas><div id="measure-labels"></div></div>
+<aside>
+<p><strong>Click an edge</strong> for its length. <strong>Shift-click</strong> to add edges.
+<strong>Drag</strong> to orbit; <strong>scroll</strong> to zoom.</p>
+<button data-view="iso">Perspective</button><button data-view="top">Top</button>
+<button data-view="bottom">Bottom</button><button data-view="side">Side</button>
+<button data-view="end">End / flange tilt</button>
+<label><input type="checkbox" id="measure" checked> Show / measure CAD edges</label>
+<label><input type="checkbox" id="bolt-spacings" checked> Bolt-hole spacings (centre to centre)</label>
+<small>Cyan lines join neighbouring hole centres. Their labels are in mm; click a line or label for details.</small>
+<div id="measurement-panel"><strong>Measurements (mm)</strong>
+<div id="measure-result" aria-live="polite">Click a visible edge. Rotate the model to reach hidden edges.</div>
+<button id="clear-measurements">Clear measurements</button>
+<small>Lengths describe this estimated model, not measured hardware. Shift-click can sum several traced segments.</small></div>
+<a class="button" href="dimensions.png">Dimensioned PNG</a>
+<a class="button" href="dimensions.svg">Dimensioned SVG</a>
+<a class="button" href="edge_lengths.csv" download>All edge lengths CSV</a>
+<a class="button" href="bolt_spacings.csv" download>Bolt spacings CSV</a>
+<label><input type="checkbox" id="ground" checked> Show floor reference (not exported)</label>
+<label><input type="checkbox" id="internals" checked> Show estimated baffles / trap doors</label>
+<label><input type="checkbox" id="plugs" checked> Show unthreaded plugs</label>
+<label><input type="checkbox" id="explode"> Lift internals for inspection</label>
+<p id="status"></p>
+<p class="warning"><strong>__ROLL_DEG__&deg; flange-to-floor roll</strong>, provisional.
+The floors are level; the flange is not. The signed flange height change from -Y to +Y is __FLANGE_RISE__ mm.</p>
+<h2>CAD and mesh files</h2>
+<a class="button" href="pan.step" download>Pan STEP</a>
+<a class="button" href="pan.stl" download>Pan STL</a>
+<a class="button" href="pan_with_estimated_internals.step" download>Assembly STEP</a>
+<a class="button" href="pan.glb" download>GLB</a>
+<a class="button" href="pan.obj" download>OBJ</a>
+<a class="button" href="preview.png">Preview PNG</a>
+<a class="button" href="flange_trace.png">Gasket trace overlay</a>
+<h2>What is known</h2>
+<p>KPower lists V2 walls as <strong>2.54 mm</strong> and the flange as <strong>9.525 mm</strong>.
+The version in the reference photos is not confirmed.</p>
+<p>ACKOJA's OEM-pattern A26-0159 replacement is listed as <strong>456 x 270 x 140 mm</strong>,
+separately from packaging dimensions. Its overall length and width constrain this study's provisional scale.
+These are not verified mounting-plate dimensions or proof of K24Z3 compatibility.</p>
+<h2>What is estimated</h2>
+<p><strong>Revised rear sump:</strong> the bung-side wing has been pulled inward 30 mm in flange coordinates,
+bringing its shoulder into balance with the opposite side. The narrow throat and broad straight rear edge remain.
+The bung, bore and plug follow the inset wall. These are photo-proportion estimates.
+<strong>Bottom</strong> shows engine front at the top and rear at the bottom for comparison.</p>
+<p><strong>Revised flange:</strong> asymmetric perimeter, inner opening and all 16 hole centres
+are traced from your gasket image, including its unequal end chamfers and rounded corners.
+The photo supplies relative geometry, not an absolute scale or confirmed handedness.</p>
+<p>ATI documents an OEM K20/K24 slant of 15&deg;. KPower's K24Z3 guide does not
+give a numerical installation angle, so this is an editable assumption, not a confirmed KPower specification.
+The walls and baffles follow the flange axes; the sump and bridge floors are cut level.
+The lean direction has been reversed per your correction. Individual wall orientations remain approximate.</p>
+<p>Overall length/width, depths, absolute bolt coordinates, drain bores and hidden baffles remain estimates.
+The model captures the two deep wells and shallow rack/subframe clearance bridge.
+It omits the separate pump adapter and pickup tube, weld texture, threads and exact trap-door hinges.</p>
+<p><strong>Scale:</strong> CAD and STL coordinates are millimetres. GLB uses metres.
+Z = 0 is the small-well bottom; the flange center is above it.
+Depth parameters are vertical distances below the flange center, not flange-normal depths.
+The small box well is at negative X; the broad polygonal well is at positive X.
+Positive Y is the high side for positive roll. Vehicle orientation is inferred.</p>
+<details><summary>Editable dimensions (mm / degrees)</summary><pre>__DIMENSIONS__</pre></details>
+<h2>Reference sources</h2>
+<p><a href="https://kpower.industries/products/k24z3-miata-oiling-system">KPower product / V2 thickness specifications</a><br>
+<a href="https://www.reddit.com/r/Miata/comments/1266bss/kpower_k24z3_swap_post_4/">Installed photos supplied by user</a><br>
+<a href="https://spareto.com/products/ackoja-oil-sump/a26-0159">Stock-pattern size reference and flange photos</a><br>
+<a href="https://www.autodoc.co.uk/ackojap/14480037">Independent dimensions / packaging distinction</a><br>
+<a href="https://www.atiracing.com/links/pr/2025/09-Honda-K20_K24_Adapter_kit/">ATI: OEM K20/K24 15-degree slant</a><br>
+<a href="https://cdn.shopify.com/s/files/1/1109/4350/files/K24Z3_Installation_Guide_-_Oct_2020_revision_2.pdf?v=1603211191">KPower K24Z3 guide: pan photos on page 21</a><br>
+<a href="https://grabcad.com/library/k24-oil-pan-oil-pickup-baffles-1/files">Potential K24 stock-pan scan</a></p>
+<small>The scan was discoverable in search but its download was not accessible; it was not used to derive dimensions.
+Moroso's quoted 16.75 x 9 inches describes a different pan's sump, not an OEM mounting flange.</small>
+</aside></main>
+<script>
+"use strict";
+const data=__MESH_DATA__;
+const edgeData=__EDGE_DATA__;
+const boltSpacingData=__BOLT_SPACING_DATA__;
+const canvas=document.getElementById("view"),status=document.getElementById("status");
+const measurementResult=document.getElementById("measure-result"),labels=document.getElementById("measure-labels");
+const gl=canvas.getContext("webgl",{antialias:true});
+if(!gl){status.className="error";status.textContent="WebGL is unavailable. Open preview.png or the STEP/STL model.";}
+else{
+const vertexSource=`
+attribute vec3 position;attribute vec3 normal;attribute vec3 edgeId;
+uniform mat3 rotation;uniform float aspect;uniform float distance;uniform float lift;uniform bool orthographic;
+varying vec3 n;varying vec3 pickId;
+void main(){
+vec3 p=rotation*((position+vec3(0.,0.,-__CENTER_Z__+lift))/300.);
+float z=p.z-distance;float near=.1;float far=20.;
+gl_Position=vec4(p.x*1.8/aspect,p.y*1.8,(far+near)/(near-far)*z+2.*far*near/(near-far),-z);
+if(orthographic)gl_Position=vec4(p.x*1.8/aspect/distance,p.y*1.8/distance,-p.z/10.,1.);
+n=rotation*normal;pickId=edgeId;}`;
+const fragmentSource=`
+precision mediump float;uniform vec3 color;uniform bool picking;uniform bool edgePass;varying vec3 n;varying vec3 pickId;
+void main(){
+if(picking){gl_FragColor=vec4(edgePass?pickId:vec3(0.),1.);return;}
+if(edgePass){gl_FragColor=vec4(color,1.);return;}
+vec3 norm=normalize(n);if(!gl_FrontFacing)norm=-norm;
+float light=.40+.60*max(0.,dot(norm,normalize(vec3(-.35,.5,1.))));
+gl_FragColor=vec4(color*light,1.);}`;
+function shader(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);
+if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s;}
+const program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,vertexSource));
+gl.attachShader(program,shader(gl.FRAGMENT_SHADER,fragmentSource));gl.linkProgram(program);
+if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));
+gl.useProgram(program);gl.enable(gl.DEPTH_TEST);
+const pos=gl.getAttribLocation(program,"position"),norm=gl.getAttribLocation(program,"normal"),edgeId=gl.getAttribLocation(program,"edgeId");
+const uniforms={};for(const key of ["rotation","aspect","distance","lift","color","orthographic","picking","edgePass"])uniforms[key]=gl.getUniformLocation(program,key);
+function buffer(array){const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(array),gl.STATIC_DRAW);return b;}
+const parts=data.map(d=>({...d,positionBuffer:buffer(d.positions),normalBuffer:buffer(d.normals),count:d.positions.length/3}));
+const edgeMap=new Map([...edgeData,...boltSpacingData].map(edge=>[edge.id,edge]));
+function edgeGroup(name,edges,guide=false){
+  const positions=[],ids=[];
+  for(const edge of edges){
+    edge.first=positions.length/3;
+    const color=[(edge.id&255)/255,((edge.id>>8)&255)/255,((edge.id>>16)&255)/255];
+    for(let i=1;i<edge.points.length;i++){
+      positions.push(...edge.points[i-1],...edge.points[i]);ids.push(...color,...color);
+    }
+    edge.count=positions.length/3-edge.first;
+  }
+  return {name,guide,edges,positionBuffer:buffer(positions),idBuffer:buffer(ids),count:positions.length/3};
+}
+const edgeGroups=[
+  ...parts.map(part=>edgeGroup(part.name,edgeData.filter(edge=>edge.part===part.name))),
+  edgeGroup("pan",boltSpacingData,true)
+];
+const floorPositions=[];
+for(let y=-240;y<=240;y+=60)floorPositions.push(-300,y,-.4,300,y,-.4);
+for(let x=-300;x<=300;x+=60)floorPositions.push(x,-240,-.4,x,240,-.4);
+const floorPositionBuffer=buffer(floorPositions);
+let yaw=-.5,tilt=-.95,distance=2.7,orthographic=false;
+let selected=new Set();
+const pickFramebuffer=gl.createFramebuffer(),pickTexture=gl.createTexture(),pickDepth=gl.createRenderbuffer();
+function visible(name){
+  return (!name.includes("estimated")||document.getElementById("internals").checked)
+    &&(!name.includes("plug")||document.getElementById("plugs").checked);
+}
+function measurementVisible(edge){
+  return visible(edge.part)&&document.getElementById(edge.kind==="BOLT_SPACING"?"bolt-spacings":"measure").checked;
+}
+function liftFor(name){return name.includes("estimated")&&document.getElementById("explode").checked?160:0;}
+function bind(attribute,b){
+  gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.enableVertexAttribArray(attribute);gl.vertexAttribPointer(attribute,3,gl.FLOAT,false,0,0);
+}
+function resize(){
+  const ratio=Math.min(window.devicePixelRatio||1,2);
+  const width=Math.round(canvas.clientWidth*ratio),height=Math.round(canvas.clientHeight*ratio);
+  if(canvas.width===width&&canvas.height===height)return;
+  canvas.width=width;canvas.height=height;
+  gl.bindTexture(gl.TEXTURE_2D,pickTexture);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+  gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,width,height,0,gl.RGBA,gl.UNSIGNED_BYTE,null);
+  gl.bindRenderbuffer(gl.RENDERBUFFER,pickDepth);
+  gl.renderbufferStorage(gl.RENDERBUFFER,gl.DEPTH_COMPONENT16,width,height);
+  gl.bindFramebuffer(gl.FRAMEBUFFER,pickFramebuffer);
+  gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,pickTexture,0);
+  gl.framebufferRenderbuffer(gl.FRAMEBUFFER,gl.DEPTH_ATTACHMENT,gl.RENDERBUFFER,pickDepth);
+  if(gl.checkFramebufferStatus(gl.FRAMEBUFFER)!==gl.FRAMEBUFFER_COMPLETE)throw Error("Edge picking framebuffer is incomplete");
+  gl.bindFramebuffer(gl.FRAMEBUFFER,null);
+}
+function scene(picking){
+  gl.viewport(0,0,canvas.width,canvas.height);
+  gl.clearColor(picking?0:.063,picking?0:.094,picking?0:.125,1);
+  gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+  const c=Math.cos(yaw),s=Math.sin(yaw),a=Math.cos(tilt),b=Math.sin(tilt);
+  gl.uniformMatrix3fv(uniforms.rotation,false,new Float32Array([c,a*s,b*s,-s,a*c,b*c,0,-b,a]));
+  gl.uniform1f(uniforms.aspect,canvas.width/canvas.height);gl.uniform1f(uniforms.distance,distance);
+  gl.uniform1i(uniforms.orthographic,orthographic?1:0);gl.uniform1i(uniforms.picking,picking?1:0);
+  gl.uniform1i(uniforms.edgePass,0);
+  gl.disableVertexAttribArray(edgeId);gl.vertexAttrib3f(edgeId,0,0,0);
+  gl.enable(gl.POLYGON_OFFSET_FILL);gl.polygonOffset(1,1);
+  for(const part of parts){
+    if(!visible(part.name))continue;
+    gl.uniform1f(uniforms.lift,liftFor(part.name));gl.uniform3fv(uniforms.color,part.color);
+    bind(pos,part.positionBuffer);bind(norm,part.normalBuffer);
+    gl.drawArrays(gl.TRIANGLES,0,part.count);
+  }
+  gl.disable(gl.POLYGON_OFFSET_FILL);
+  gl.uniform1i(uniforms.edgePass,1);gl.disableVertexAttribArray(norm);gl.vertexAttrib3f(norm,0,0,1);
+  if(!picking&&document.getElementById("ground").checked){
+    gl.uniform1f(uniforms.lift,0);gl.uniform3fv(uniforms.color,[.24,.37,.48]);
+    bind(pos,floorPositionBuffer);gl.drawArrays(gl.LINES,0,floorPositions.length/3);
+  }
+  if(document.getElementById("measure").checked||document.getElementById("bolt-spacings").checked){
+    gl.depthFunc(gl.LEQUAL);
+    for(const group of edgeGroups){
+      if(!visible(group.name)||!document.getElementById(group.guide?"bolt-spacings":"measure").checked)continue;
+      gl.uniform1f(uniforms.lift,liftFor(group.name));
+      gl.uniform3fv(uniforms.color,group.guide?[.30,.90,.96]:[.19,.28,.35]);
+      bind(pos,group.positionBuffer);bind(edgeId,group.idBuffer);
+      gl.drawArrays(gl.LINES,0,group.count);
+      if(!picking){
+        gl.uniform3fv(uniforms.color,[1,.74,.28]);
+        for(const edge of group.edges)if(selected.has(edge.id))gl.drawArrays(gl.LINES,edge.first,edge.count);
+      }
+    }
+    gl.depthFunc(gl.LESS);
+  }
+}
+function project(point,name){
+  const x=point[0]/300,y=point[1]/300,z=(point[2]-__CENTER_Z__+liftFor(name))/300;
+  const c=Math.cos(yaw),s=Math.sin(yaw),a=Math.cos(tilt),b=Math.sin(tilt);
+  const vx=c*x-s*y,vy=a*s*x+a*c*y-b*z,vz=b*s*x+b*c*y+a*z;
+  const depth=orthographic?distance:distance-vz;
+  if(depth<=.1)return null;
+  return [(1+vx*1.8/(canvas.width/canvas.height)/depth)*canvas.clientWidth/2,
+          (1-vy*1.8/depth)*canvas.clientHeight/2];
+}
+function updateLabels(){
+  labels.replaceChildren();
+  const roll=__ROLL_DEG__*Math.PI/180;
+  const flangeFacingCamera=Math.sin(tilt)*Math.cos(yaw)*(-Math.sin(roll))+Math.cos(tilt)*Math.cos(roll);
+  if(document.getElementById("bolt-spacings").checked&&flangeFacingCamera>.15){
+    const centroid=[0,0,0];
+    for(const edge of boltSpacingData)for(let i=0;i<3;i++)centroid[i]+=edge.points[0][i]/boltSpacingData.length;
+    const center=project(centroid,"pan");
+    for(const edge of boltSpacingData){
+      if(selected.has(edge.id))continue;
+      const a=project(edge.points[0],"pan"),b=project(edge.points[1],"pan");
+      if(!a||!b||!center)continue;
+      const middle=[(a[0]+b[0])/2,(a[1]+b[1])/2];
+      const delta=[b[0]-a[0],b[1]-a[1]],span=Math.hypot(...delta);
+      if(span<1)continue;
+      const outward=[-delta[1]/span,delta[0]/span];
+      if(outward[0]*(middle[0]-center[0])+outward[1]*(middle[1]-center[1])<0){outward[0]*=-1;outward[1]*=-1;}
+      const label=document.createElement("span");label.className="bolt-label";label.dataset.spacingId=edge.id;
+      label.textContent=edge.length_mm.toFixed(1);
+      label.title=`H${edge.hole_ids[0]}-H${edge.hole_ids[1]}: ${edge.length_mm.toFixed(2)} mm centre-to-centre`;
+      label.style.left=Math.max(26,Math.min(canvas.clientWidth-26,middle[0]+outward[0]*23))+"px";
+      label.style.top=Math.max(12,Math.min(canvas.clientHeight-12,middle[1]+outward[1]*23))+"px";
+      label.addEventListener("click",event=>selectMeasurement(edge.id,event.shiftKey));
+      labels.append(label);
+    }
+  }
+  for(const id of selected){
+    const edge=edgeMap.get(id);
+    if(!measurementVisible(edge))continue;
+    const point=(edge.kind==="LINE"||edge.kind==="BOLT_SPACING")?edge.points[0].map((v,i)=>(v+edge.points[1][i])/2)
+      :edge.points[Math.floor(edge.points.length/2)];
+    const at=project(point,edge.part);if(!at)continue;
+    const label=document.createElement("span");label.className="measure-pin";
+    const name=edge.hole_ids?`H${edge.hole_ids[0]}-H${edge.hole_ids[1]}`:`E${id}`;
+    label.textContent=`${name}: ${edge.length_mm.toFixed(2)} mm`;
+    label.style.left=Math.max(0,Math.min(canvas.clientWidth-180,at[0]+10))+"px";
+    label.style.top=Math.max(0,Math.min(canvas.clientHeight-30,at[1]-25))+"px";
+    labels.append(label);
+  }
+}
+function updateMeasurement(){
+  measurementResult.replaceChildren();
+  if(!selected.size){measurementResult.textContent="Click a visible edge. Rotate the model to reach hidden edges.";return;}
+  let total=0;
+  for(const id of selected){
+    const edge=edgeMap.get(id);total+=edge.length_mm;
+    const row=document.createElement("p");row.dataset.edgeId=id;
+    row.textContent=`E${id} | ${edge.part} | ${edge.kind}: ${edge.length_mm.toFixed(2)} mm`;
+    if(edge.kind==="BOLT_SPACING")row.textContent=`H${edge.hole_ids[0]}-H${edge.hole_ids[1]} | centre-to-centre: ${edge.length_mm.toFixed(2)} mm`;
+    if(edge.radius_mm!==undefined)row.textContent+=` | diameter ${(edge.radius_mm*2).toFixed(2)} mm (length follows arc)`;
+    measurementResult.append(row);
+  }
+  if(selected.size>1){
+    const totalRow=document.createElement("strong");totalRow.id="measurement-total";
+    totalRow.textContent=`Sum of ${selected.size} edges: ${total.toFixed(2)} mm`;
+    measurementResult.append(totalRow);
+  }
+}
+function render(){resize();gl.bindFramebuffer(gl.FRAMEBUFFER,null);scene(false);updateLabels();}
+function selectMeasurement(id,append){
+  if(!append)selected.clear();
+  if(id!==null){if(selected.has(id))selected.delete(id);else selected.add(id);}
+  updateMeasurement();render();
+}
+function pick(clientX,clientY){
+  if(!document.getElementById("measure").checked&&!document.getElementById("bolt-spacings").checked)return null;
+  resize();
+  const rect=canvas.getBoundingClientRect(),ratio=canvas.width/rect.width;
+  const px=(clientX-rect.left)*ratio,py=canvas.height-(clientY-rect.top)*ratio;
+  const radius=Math.ceil(8*ratio),x=Math.max(0,Math.floor(px)-radius),y=Math.max(0,Math.floor(py)-radius);
+  const width=Math.min(radius*2+1,canvas.width-x),height=Math.min(radius*2+1,canvas.height-y);
+  if(width<=0||height<=0)return null;
+  gl.bindFramebuffer(gl.FRAMEBUFFER,pickFramebuffer);
+  gl.disable(gl.DITHER);gl.enable(gl.SCISSOR_TEST);gl.scissor(x,y,width,height);scene(true);
+  const pixels=new Uint8Array(width*height*4);
+  gl.readPixels(x,y,width,height,gl.RGBA,gl.UNSIGNED_BYTE,pixels);
+  gl.disable(gl.SCISSOR_TEST);gl.enable(gl.DITHER);gl.bindFramebuffer(gl.FRAMEBUFFER,null);
+  let best=null,nearest=Infinity;
+  for(let j=0;j<height;j++)for(let i=0;i<width;i++){
+    const offset=(j*width+i)*4,id=pixels[offset]+(pixels[offset+1]<<8)+(pixels[offset+2]<<16);
+    if(!edgeMap.has(id))continue;
+    const d=(x+i+.5-px)**2+(y+j+.5-py)**2;
+    if(d<nearest){nearest=d;best=id;}
+  }
+  return best;
+}
+let drag=null;
+canvas.addEventListener("pointerdown",e=>{
+  drag={start:[e.clientX,e.clientY],last:[e.clientX,e.clientY],moved:false};canvas.setPointerCapture(e.pointerId);
+});
+canvas.addEventListener("pointermove",e=>{
+  if(!drag)return;
+  if(Math.hypot(e.clientX-drag.start[0],e.clientY-drag.start[1])>4)drag.moved=true;
+  if(drag.moved){yaw+=(e.clientX-drag.last[0])*.008;tilt+=(e.clientY-drag.last[1])*.008;render();}
+  drag.last=[e.clientX,e.clientY];
+});
+canvas.addEventListener("pointerup",e=>{
+  if(drag&&!drag.moved){
+    const id=pick(e.clientX,e.clientY);
+    selectMeasurement(id,e.shiftKey);
+  }
+  drag=null;
+});
+for(const event of ["pointercancel","lostpointercapture"])canvas.addEventListener(event,()=>drag=null);
+canvas.addEventListener("wheel",e=>{e.preventDefault();distance=Math.max(1.3,Math.min(8,distance*Math.exp(e.deltaY*.001)));render();},{passive:false});
+for(const button of document.querySelectorAll("[data-view]"))button.addEventListener("click",()=>{
+const views={iso:[-.5,-.95],top:[0,0],bottom:[Math.PI/2,Math.PI],side:[0,-Math.PI/2],end:[Math.PI/2,-Math.PI/2]};
+orthographic=button.dataset.view==="end";
+[yaw,tilt]=views[button.dataset.view];render();});
+for(const id of ["internals","plugs","explode","ground","measure","bolt-spacings"])document.getElementById(id).addEventListener("change",()=>{
+  selected=new Set([...selected].filter(id=>measurementVisible(edgeMap.get(id))));updateMeasurement();render();
+});
+document.getElementById("clear-measurements").addEventListener("click",()=>{selected.clear();updateMeasurement();render();});
+window.addEventListener("resize",render);
+status.textContent=parts.length+" CAD solids | "+edgeData.length+" measurable edges | __ROLL_DEG__ deg roll";
+render();
+}
+</script></body></html>
